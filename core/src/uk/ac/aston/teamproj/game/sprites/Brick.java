@@ -20,7 +20,7 @@ public class Brick extends InteractiveTileObject {
 
 	@Override
 	public void onHit() {
-		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Brick Collision");	
+		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Brick Collision edit ");	
 	} 
 	
 	
