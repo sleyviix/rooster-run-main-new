@@ -54,7 +54,7 @@ public class Bomb extends InteractiveTileObject {
 		//for now, just log the event to the console
 	   	Sound sound = Gdx.audio.newSound(Gdx.files.internal("bomb.wav"));
         sound.play(1F);
-		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Bomb hhh Collision");
+		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Bomb Collision");
 	
 		//set category to destroyed bit
 		setCategoryFilter(MainGame.DESTROYED_BIT);
