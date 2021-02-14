@@ -3,6 +3,7 @@ package uk.ac.aston.teamproj.game.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,6 +31,10 @@ public class GameOverScreen implements Screen {
 	private Game game;
 	
 	public GameOverScreen(Game game) {
+		
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("gameover.mp3"));
+        sound.play(1F);
+		
 		this.game = game;
 		viewport = new FitViewport(MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6, new OrthographicCamera());
 		stage = new Stage(viewport, ((MainGame) game).batch);
