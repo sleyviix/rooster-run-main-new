@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import uk.ac.aston.teamproj.game.net.MPServer;
 import uk.ac.aston.teamproj.game.screens.MainMenuScreen;
-import uk.ac.aston.teamproj.game.screens.MenuScreen;
 import uk.ac.aston.teamproj.game.screens.PlayScreen;
 
 public class MainGame extends Game {
