@@ -421,7 +421,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="7_bomb">
-  <object id="28" x="8831.17" y="1056.33" width="95.6667" height="95.3333"/>
+  <object id="28" x="8831.17" y="1056.33" width="95.4849" height="94.606"/>
   <object id="63" x="7392.09" y="1055.82" width="96" height="96"/>
   <object id="65" x="21120" y="1056" width="96" height="96"/>
   <object id="66" x="19392" y="768" width="96" height="96"/>
@@ -429,8 +429,8 @@
   <object id="68" x="14496" y="1056" width="96" height="96"/>
   <object id="72" x="12768" y="1056" width="96" height="96"/>
   <object id="73" x="11424.5" y="960.5" width="96" height="96"/>
-  <object id="106" x="8928" y="960" width="96" height="96"/>
-  <object id="107" x="8928" y="1056" width="96" height="96"/>
+  <object id="106" x="8928" y="960" width="96" height="95.2727"/>
+  <object id="107" x="8928.18" y="1056.55" width="96" height="94.5455"/>
   <object id="124" x="22464" y="1056" width="96" height="96"/>
   <object id="127" x="28224" y="1056" width="96" height="96"/>
   <object id="128" x="28320" y="1056" width="96" height="96"/>
