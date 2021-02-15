@@ -118,6 +118,8 @@ public class PlayScreen implements Screen {
 		} else {
 			world.setContactListener(new WorldContactListener(this, player2));
 		}
+//		Sound sound = Gdx.audio.newSound(Gdx.files.internal("game_soundtrack.mp3"));
+//        sound.play(1F);
 	}
 
 	@Override
