@@ -51,6 +51,7 @@ public class MainGame extends Game {
 			}
 	
 		setScreen(new MainMenuScreen(this));
+		System.out.println();
 	}
 	
 	public void startGame() {
