@@ -75,7 +75,8 @@ public class PlayScreen implements Screen {
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
-	
+	public static int score;
+	public static int score2;
 
 	public PlayScreen(MainGame game, int clientID) {
 		this.game = game;
@@ -131,7 +132,6 @@ public class PlayScreen implements Screen {
 		if (clientID == MPServer.playerCount.get(0)) {
 			if (player.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount1 < MAX_JUMPS) {
-
 
 					 //plays button swoosh sound
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
@@ -366,9 +366,11 @@ public class PlayScreen implements Screen {
 	// TEMP
 	private boolean gameOver() {
 		if (clientID == MPServer.playerCount.get(0)) {
+			score = hud.getScore();
 			return (player.currentState == Rooster.State.DEAD && player.getStateTimer() > 3);
 		}
 		if (clientID == MPServer.playerCount.get(1)) {
+			score = hud2.getScore();
 			return (player2.currentState == Rooster.State.DEAD && player2.getStateTimer() > 3);
 		}
 		return false;

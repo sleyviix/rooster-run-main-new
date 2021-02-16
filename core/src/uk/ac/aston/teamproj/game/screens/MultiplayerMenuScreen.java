@@ -64,7 +64,7 @@ public class MultiplayerMenuScreen implements Screen {
 		btn_style.font = new BitmapFont();
 		
 		
-		buttonsAtlas = new TextureAtlas("buttons/myButtons.pack");
+		buttonsAtlas = new TextureAtlas("buttons/MyButtons.pack");
 		skin = new Skin(buttonsAtlas);
 		buttons = new ImageButton[3];
 		
