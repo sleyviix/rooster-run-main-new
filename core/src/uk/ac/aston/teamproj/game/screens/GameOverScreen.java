@@ -1,5 +1,7 @@
 package uk.ac.aston.teamproj.game.screens;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,6 +18,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import uk.ac.aston.teamproj.game.MainGame;
+import uk.ac.aston.teamproj.game.net.MPClient;
+import uk.ac.aston.teamproj.game.net.MPServer;
+import uk.ac.aston.teamproj.game.sprites.Rooster;
+import uk.ac.aston.teamproj.game.sprites.Rooster2;
 
 /**
  * 
@@ -30,8 +37,13 @@ public class GameOverScreen implements Screen {
 	@SuppressWarnings("unused")
 	private Game game;
 	
+	//Rooster
+	Rooster rooster;
+	Rooster2 rooster2;
+	
+	
 	public GameOverScreen(Game game) {
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("gameover.mp3"));
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/gameover.mp3"));
         sound.play(1F);
 		
 		this.game = game;
@@ -69,7 +81,20 @@ public class GameOverScreen implements Screen {
 	public void render(float delta) {
 		
 		if(Gdx.input.justTouched()) {
-			game.setScreen(new MenuScreen(( MainGame )game));
+			
+			MPServer.server.stop();
+			game.setScreen(new MultiplayerMenuScreen(( MainGame )game));
+
+		
+			try {
+				new MPServer();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
 			dispose();
 		}
 		
@@ -78,11 +103,13 @@ public class GameOverScreen implements Screen {
 		
 		stage.draw();
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {
 			
 	}
+
 
 	@Override
 	public void pause() {

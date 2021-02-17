@@ -29,7 +29,7 @@ public class EndPlane extends InteractiveTileObject {
 		//for now, just log the event to the console
 		Gdx.app.log("PLANE", "Collision");
 		
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("firstplace.wav"));
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/firstplace.wav"));
         sound.play(1F);
 		
 		//set category to destroyed bit

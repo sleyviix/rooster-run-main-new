@@ -97,7 +97,7 @@
  </layer>
  <layer id="2" name="2_foreground" width="500" height="13">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="4" name="3_ground">
@@ -421,7 +421,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="7_bomb">
-  <object id="28" x="8831.17" y="1056.33" width="95.4849" height="94.606"/>
+  <object id="28" x="8832.17" y="1056" width="95.4849" height="94.606"/>
   <object id="63" x="7392.09" y="1055.82" width="96" height="96"/>
   <object id="65" x="21120" y="1056" width="96" height="96"/>
   <object id="66" x="19392" y="768" width="96" height="96"/>
@@ -429,8 +429,6 @@
   <object id="68" x="14496" y="1056" width="96" height="96"/>
   <object id="72" x="12768" y="1056" width="96" height="96"/>
   <object id="73" x="11424.5" y="960.5" width="96" height="96"/>
-  <object id="106" x="8928" y="960" width="96" height="95.2727"/>
-  <object id="107" x="8928.18" y="1056.55" width="96" height="94.5455"/>
   <object id="124" x="22464" y="1056" width="96" height="96"/>
   <object id="127" x="28224" y="1056" width="96" height="96"/>
   <object id="128" x="28320" y="1056" width="96" height="96"/>

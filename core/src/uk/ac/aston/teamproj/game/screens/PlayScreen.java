@@ -99,7 +99,7 @@ public class PlayScreen implements Screen {
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
 
 		// Initially set our game cam to be centered correctly at the start of the map
-		gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+		gamecam.position.set(gamePort.getWorldWidth() / 1, gamePort.getWorldHeight() / 2, 0);
 
 		// Vector of gravity no grav rn, sleep objects at rest = true - box2d does not
 		// calculate physics simulations on objects that are in rest.
@@ -134,7 +134,7 @@ public class PlayScreen implements Screen {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount1 < MAX_JUMPS) {
 
 					 //plays button swoosh sound
-					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
+					Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
 
 				
@@ -165,7 +165,7 @@ public class PlayScreen implements Screen {
 		if (clientID == MPServer.playerCount.get(1)) {
 			if (player2.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {	
-					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
+					Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
 					
 					MovementP2Jump pos = new MovementP2Jump();

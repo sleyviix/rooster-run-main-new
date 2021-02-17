@@ -81,7 +81,7 @@ public class MainMenuScreen implements Screen {
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	//do something
 	            	//plays button sounds
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/pop.mp3"));
 	                sound.play(1F);
 	            	System.out.println("MULTI");
 	            	MainMenuScreen.this.dispose();
@@ -102,7 +102,7 @@ public class MainMenuScreen implements Screen {
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	                //do something
 	            	//plays button sounds
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/pop.mp3"));
 	                sound.play(1F);
 	            	System.out.println("TUTORIAL");
 	            	Gdx.net.openURI("https://www.youtube.com/watch?v=wHyzCWOFR3A&ab_channel=RoosterRun");
@@ -122,7 +122,7 @@ public class MainMenuScreen implements Screen {
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	                //do something
 	            	//plays button sounds
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/pop.mp3"));
 	                sound.play(1F);
 	            	System.out.println("QUIT");
 	            	Gdx.app.exit();
