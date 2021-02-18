@@ -42,6 +42,7 @@ import uk.ac.aston.teamproj.game.tools.WorldContactListener;
 public class PlayScreen implements Screen {
 
 	private static final int SCORE_LOC = 400 * 6; // increment score every 400 units
+	private static final String DEFAULT_MAP_PATH = "mab_beginner_fix";
 
 	private MainGame game;
 	private TextureAtlas atlas; // sprite sheet that wraps all images
@@ -75,7 +76,6 @@ public class PlayScreen implements Screen {
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
-	
 
 	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
@@ -94,7 +94,8 @@ public class PlayScreen implements Screen {
 
 		// Load our map and setup our map renderer
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load(mapPath + ".tmx");
+		String correctMapPath = (mapPath != null)? mapPath : DEFAULT_MAP_PATH; 			
+		map = mapLoader.load(correctMapPath + ".tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
 
 		// Initially set our game cam to be centered correctly at the start of the map
