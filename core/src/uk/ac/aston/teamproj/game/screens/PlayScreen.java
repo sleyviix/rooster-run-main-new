@@ -77,7 +77,7 @@ public class PlayScreen implements Screen {
 	
 	
 
-	public PlayScreen(MainGame game, int clientID) {
+	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
 		this.atlas = new TextureAtlas("new_sprite_sheet/new_chicken.pack");
@@ -94,7 +94,7 @@ public class PlayScreen implements Screen {
 
 		// Load our map and setup our map renderer
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("map_beginner_fix" + ".tmx");
+		map = mapLoader.load(mapPath + ".tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
 
 		// Initially set our game cam to be centered correctly at the start of the map

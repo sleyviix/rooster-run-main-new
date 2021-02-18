@@ -7,6 +7,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
+import uk.ac.aston.teamproj.game.net.packet.ChosenMap;
 import uk.ac.aston.teamproj.game.net.packet.Login;
 import uk.ac.aston.teamproj.game.net.packet.MovementJump;
 import uk.ac.aston.teamproj.game.net.packet.MovementLeft;
@@ -32,7 +33,7 @@ public class MPServer {
 	 * Constructor
 	 * @param args
 	 */
-	public MPServer() throws IOException {
+	public MPServer(final String mapPath) throws IOException {
 		playerCount = new ArrayList<>();
 		timer = 0;
 		playerCount.add(1);
@@ -49,7 +50,17 @@ public class MPServer {
 		Network.register(server);
 
 		server.addListener(new Listener() {
-
+			
+			@Override
+			public void connected(Connection c) {
+				if (mapPath != null) {
+					ChosenMap map = new ChosenMap();
+					map.path = mapPath;
+					server.sendToAllTCP(map);
+				}
+			}
+			
+			@Override
 			public void received(Connection c, Object object) {
 				
 				PlayerConnection connection = (PlayerConnection) c;

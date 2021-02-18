@@ -80,7 +80,8 @@ public class CreateScreen implements Screen {
 		
 		mapsImages[0] = new Texture("Map1.jpg");
 		mapsImages[1] = new Texture("Map2.jpg");
-		
+		mapsPaths[0] = "map_beginner_fix";
+		mapsPaths[1] = "map_hard";
 	}
 	
 	private void initializeButtons() {		
@@ -118,9 +119,9 @@ public class CreateScreen implements Screen {
 	    				}
 	    			});
 	    			
-	    			if(!MPServer.online) {
+	    			if (!MPServer.online) {
 	    				try {
-	    					new MPServer();
+	    					new MPServer(mapsPaths[mapIdx]);
 	    				} catch (IOException e) {
 	    					e.printStackTrace();
 	    				}

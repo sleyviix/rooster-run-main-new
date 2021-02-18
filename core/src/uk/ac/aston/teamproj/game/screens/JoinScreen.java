@@ -126,7 +126,7 @@ public class JoinScreen implements Screen {
 
 	    			if(!MPServer.online) {
 	    				try {
-	    					new MPServer();
+	    					new MPServer(null);
 	    				} catch (IOException e) {
 	    					e.printStackTrace();
 	    				}
