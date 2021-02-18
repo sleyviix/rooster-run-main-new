@@ -1,5 +1,7 @@
 package uk.ac.aston.teamproj.game.screens;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -27,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.net.MPClient;
+import uk.ac.aston.teamproj.game.net.MPServer;
 
 public class CreateScreen implements Screen {
 		
@@ -114,7 +117,15 @@ public class CreateScreen implements Screen {
 	    					name = textField.getText();
 	    				}
 	    			});
-
+	    			
+	    			if(!MPServer.online) {
+	    				try {
+	    					new MPServer();
+	    				} catch (IOException e) {
+	    					e.printStackTrace();
+	    				}
+	    			}
+	    			
 	    			new MPClient(txt_ip.getText(), txt_name.getText(), game);
 	    			dispose();
 	    			/*

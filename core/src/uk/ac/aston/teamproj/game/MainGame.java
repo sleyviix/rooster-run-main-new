@@ -40,15 +40,7 @@ public class MainGame extends Game {
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		
-		if(!MPServer.online)
-			try {
-				new MPServer();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	
+		batch = new SpriteBatch();	
 		setScreen(new MainMenuScreen(this));
 	}
 	
@@ -66,9 +58,5 @@ public class MainGame extends Game {
 		 * Delegates render method to the play screen or whatever screen is active at that time.
 		 */
 		super.render();
-	
-
-	
-
 	}
 }
