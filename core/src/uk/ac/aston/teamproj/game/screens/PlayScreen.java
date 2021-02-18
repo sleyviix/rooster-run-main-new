@@ -1,7 +1,7 @@
 package uk.ac.aston.teamproj.game.screens;
 
 import java.util.HashMap;
-
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -252,8 +252,10 @@ public class PlayScreen implements Screen {
 		renderer.setView(gamecam.combined, x, y, w, h); // Only render what our game can see
 //        renderer.setView(gamecam);
 
-		if (!toExplode.isEmpty()) {
-			for (HashMap.Entry<Bomb, Float> entry : toExplode.entrySet()) {
+			//for (HashMap.Entry<Bomb, Float> entry : toExplode.entrySet()) {
+			for (Iterator<HashMap.Entry<Bomb, Float>> iter = toExplode.entrySet().iterator();
+					iter.hasNext();) {
+				HashMap.Entry<Bomb, Float> entry = iter.next();
 				Bomb bomb = entry.getKey();
 				@SuppressWarnings("rawtypes")
 				Animation a = bomb.getAnimation();
@@ -269,10 +271,9 @@ public class PlayScreen implements Screen {
 						bomb.getCell().setTile(null); // last frame in animation should be empty
 
 				} else { // else if the animation is finished
-					toExplode.remove(bomb);
+					iter.remove();
 				}
 			}
-		}
 	}
 
 	public void updateCoins() {
