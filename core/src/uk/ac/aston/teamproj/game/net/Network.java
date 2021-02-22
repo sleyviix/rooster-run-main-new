@@ -3,6 +3,7 @@ package uk.ac.aston.teamproj.game.net;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
+import uk.ac.aston.teamproj.game.net.packet.ChosenMap;
 import uk.ac.aston.teamproj.game.net.packet.Login;
 import uk.ac.aston.teamproj.game.net.packet.MovementJump;
 import uk.ac.aston.teamproj.game.net.packet.MovementLeft;
@@ -25,6 +26,8 @@ public class Network {
 		kryo.register(MovementP2Left.class);
 		kryo.register(MovementP2Right.class);
 		kryo.register(MovementP2Jump.class);
+		
+		kryo.register(ChosenMap.class);
 	}
 	
 }
