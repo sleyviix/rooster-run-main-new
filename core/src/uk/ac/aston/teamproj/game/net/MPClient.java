@@ -10,6 +10,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Listener.ThreadedListener;
 
 import uk.ac.aston.teamproj.game.MainGame;
+import uk.ac.aston.teamproj.game.net.packet.ChosenMap;
 import uk.ac.aston.teamproj.game.net.packet.Login;
 import uk.ac.aston.teamproj.game.net.packet.MovementJump;
 import uk.ac.aston.teamproj.game.net.packet.MovementLeft;
@@ -24,6 +25,8 @@ public class MPClient {
 	public static Client client;
 	public MainGame game;
 	private String name;
+	
+	private String mapPath;
 
 	public MPClient(String ip, String name, MainGame game) {
 		this.name = name;
@@ -32,15 +35,7 @@ public class MPClient {
 		
 		Network.register(client);
 
-		try {
-			client.connect(50000, ip, Network.TCP_PORT, Network.UDP_PORT);
-			requestLogin();
-			TimeUnit.SECONDS.sleep(10);
-			game.setScreen(new PlayScreen(game, client.getID()));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 
 		client.addListener(new ThreadedListener(new Listener() {
 			// What to do with the packets.
@@ -50,6 +45,11 @@ public class MPClient {
 
 			public void received(Connection connection, Object object) {
 
+				if (object instanceof ChosenMap) {
+					ChosenMap packet = (ChosenMap) object;
+					mapPath = packet.path;					
+				}
+				
 				if (object instanceof MovementJump) {
 					MovementJump packet = (MovementJump) object;
 
@@ -94,6 +94,16 @@ public class MPClient {
 			}
 
 		}));
+		
+		try {
+			client.connect(50000, ip, Network.TCP_PORT, Network.UDP_PORT);
+			requestLogin();
+			TimeUnit.SECONDS.sleep(10);
+			game.setScreen(new PlayScreen(game, client.getID(), mapPath));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void requestLogin() {
