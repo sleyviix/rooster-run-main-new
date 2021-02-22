@@ -71,12 +71,13 @@ public class PlayScreen implements Screen {
 	private static final int MAX_JUMPS = 2;
 	private int jumpCount1 = 0;
 	private int jumpCount2 = 0;
-	
+
 	// multiplayer
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
-
+	public static int score;
+	
 	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
@@ -94,7 +95,7 @@ public class PlayScreen implements Screen {
 
 		// Load our map and setup our map renderer
 		mapLoader = new TmxMapLoader();
-		String correctMapPath = (mapPath != null)? mapPath : DEFAULT_MAP_PATH; 			
+		String correctMapPath = (mapPath != null)? mapPath : DEFAULT_MAP_PATH;
 		map = mapLoader.load(correctMapPath + ".tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
 
@@ -135,17 +136,16 @@ public class PlayScreen implements Screen {
 			if (player.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount1 < MAX_JUMPS) {
 
-
 					 //plays button swoosh sound
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
 
-				
+
 					MovementJump pos = new MovementJump();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
-					
+
 					jumpCount1++;
 				}
 
@@ -164,29 +164,29 @@ public class PlayScreen implements Screen {
 				}
 			}
 		}
-		
+
 		if (clientID == MPServer.playerCount.get(1)) {
 			if (player2.currentState != Rooster.State.DEAD) {
-				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {	
+				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
-					
+
 					MovementP2Jump pos = new MovementP2Jump();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
-					
+
 					jumpCount2++;
 				}
 
-				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { 
+				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 					MovementP2Right pos = new MovementP2Right();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
 				}
 
-				if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) 
+				if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
 				{
 					MovementP2Left pos = new MovementP2Left();
 					pos.x = player.getPositionX();
@@ -195,13 +195,13 @@ public class PlayScreen implements Screen {
 				}
 			}
 		}
-		
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             System.out.println(clientID + " : rooster1 " + player.getPositionX());
-            
+
             System.out.println(clientID + " : rooster2 " + player2.getPositionX());
         }
-        
+
 	}
 
 	/*
@@ -370,9 +370,11 @@ public class PlayScreen implements Screen {
 	// TEMP
 	private boolean gameOver() {
 		if (clientID == MPServer.playerCount.get(0)) {
+			score = hud.getScore();
 			return (player.currentState == Rooster.State.DEAD && player.getStateTimer() > 3);
 		}
 		if (clientID == MPServer.playerCount.get(1)) {
+			score = hud2.getScore();
 			return (player2.currentState == Rooster.State.DEAD && player2.getStateTimer() > 3);
 		}
 		return false;
@@ -393,11 +395,11 @@ public class PlayScreen implements Screen {
 		float startTime = Gdx.graphics.getDeltaTime();
 		toExplode.put(bomb, startTime);
 	}
-	
+
 	public void resetJumpCount1() {
 		jumpCount1 = 0;
 	}
-	
+
 	public void resetJumpCount2() {
 		jumpCount2 = 0;
 	}

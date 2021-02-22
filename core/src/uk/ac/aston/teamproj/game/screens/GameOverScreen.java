@@ -31,7 +31,6 @@ public class GameOverScreen implements Screen {
 	private Game game;
 	
 	public GameOverScreen(Game game) {
-		
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("gameover.mp3"));
         sound.play(1F);
 		
@@ -47,10 +46,12 @@ public class GameOverScreen implements Screen {
 		
 		Label gameOverLabel = new Label ("GAME OVER", font);
 		Label playAgainLabel = new Label ("Click Screen to Play Again", font);
+		Label showScore = new Label (showScore(), font);
 		table.add(gameOverLabel).expandX();
 		table.row();
 		table.add(playAgainLabel).expandX().padTop(10f);
-		
+		table.row();
+		table.add(showScore).expandX();
 		stage.addActor(table);
 	}
 	
@@ -58,6 +59,10 @@ public class GameOverScreen implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String showScore() {
+		return "Your score is: " + PlayScreen.score;
 	}
 
 	@Override
