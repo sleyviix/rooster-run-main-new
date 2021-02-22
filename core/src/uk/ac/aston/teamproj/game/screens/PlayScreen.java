@@ -1,7 +1,7 @@
 package uk.ac.aston.teamproj.game.screens;
 
 import java.util.HashMap;
-
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -42,6 +42,7 @@ import uk.ac.aston.teamproj.game.tools.WorldContactListener;
 public class PlayScreen implements Screen {
 
 	private static final int SCORE_LOC = 400 * 6; // increment score every 400 units
+	private static final String DEFAULT_MAP_PATH = "map_beginner_fix";
 
 	private MainGame game;
 	private TextureAtlas atlas; // sprite sheet that wraps all images
@@ -70,15 +71,12 @@ public class PlayScreen implements Screen {
 	private static final int MAX_JUMPS = 2;
 	private int jumpCount1 = 0;
 	private int jumpCount2 = 0;
-	
+
 	// multiplayer
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
-	public static int score;
-	public static int score2;
-
-	public PlayScreen(MainGame game, int clientID) {
+	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
 		this.atlas = new TextureAtlas("new_sprite_sheet/new_chicken.pack");
@@ -95,7 +93,8 @@ public class PlayScreen implements Screen {
 
 		// Load our map and setup our map renderer
 		mapLoader = new TmxMapLoader();
-		map = mapLoader.load("map_beginner_fix" + ".tmx");
+		String correctMapPath = (mapPath != null)? mapPath : DEFAULT_MAP_PATH;
+		map = mapLoader.load(correctMapPath + ".tmx");
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
 
 		// Initially set our game cam to be centered correctly at the start of the map
@@ -119,6 +118,8 @@ public class PlayScreen implements Screen {
 		} else {
 			world.setContactListener(new WorldContactListener(this, player2));
 		}
+//		Sound sound = Gdx.audio.newSound(Gdx.files.internal("game_soundtrack.mp3"));
+//        sound.play(1F);
 	}
 
 	@Override
@@ -137,12 +138,12 @@ public class PlayScreen implements Screen {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
 
-				
+
 					MovementJump pos = new MovementJump();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
-					
+
 					jumpCount1++;
 				}
 
@@ -161,29 +162,29 @@ public class PlayScreen implements Screen {
 				}
 			}
 		}
-		
+
 		if (clientID == MPServer.playerCount.get(1)) {
 			if (player2.currentState != Rooster.State.DEAD) {
-				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {	
+				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
-					
+
 					MovementP2Jump pos = new MovementP2Jump();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
-					
+
 					jumpCount2++;
 				}
 
-				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { 
+				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 					MovementP2Right pos = new MovementP2Right();
 					pos.x = player.getPositionX();
 					pos.x2 = player2.getPositionX();
 					MPClient.client.sendTCP(pos);
 				}
 
-				if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) 
+				if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
 				{
 					MovementP2Left pos = new MovementP2Left();
 					pos.x = player.getPositionX();
@@ -192,13 +193,13 @@ public class PlayScreen implements Screen {
 				}
 			}
 		}
-		
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             System.out.println(clientID + " : rooster1 " + player.getPositionX());
-            
+
             System.out.println(clientID + " : rooster2 " + player2.getPositionX());
         }
-        
+
 	}
 
 	/*
@@ -249,8 +250,10 @@ public class PlayScreen implements Screen {
 		renderer.setView(gamecam.combined, x, y, w, h); // Only render what our game can see
 //        renderer.setView(gamecam);
 
-		if (!toExplode.isEmpty()) {
-			for (HashMap.Entry<Bomb, Float> entry : toExplode.entrySet()) {
+			//for (HashMap.Entry<Bomb, Float> entry : toExplode.entrySet()) {
+			for (Iterator<HashMap.Entry<Bomb, Float>> iter = toExplode.entrySet().iterator();
+					iter.hasNext();) {
+				HashMap.Entry<Bomb, Float> entry = iter.next();
 				Bomb bomb = entry.getKey();
 				@SuppressWarnings("rawtypes")
 				Animation a = bomb.getAnimation();
@@ -266,10 +269,9 @@ public class PlayScreen implements Screen {
 						bomb.getCell().setTile(null); // last frame in animation should be empty
 
 				} else { // else if the animation is finished
-					toExplode.remove(bomb);
+					iter.remove();
 				}
 			}
-		}
 	}
 
 	public void updateCoins() {
@@ -391,11 +393,11 @@ public class PlayScreen implements Screen {
 		float startTime = Gdx.graphics.getDeltaTime();
 		toExplode.put(bomb, startTime);
 	}
-	
+
 	public void resetJumpCount1() {
 		jumpCount1 = 0;
 	}
-	
+
 	public void resetJumpCount2() {
 		jumpCount2 = 0;
 	}
