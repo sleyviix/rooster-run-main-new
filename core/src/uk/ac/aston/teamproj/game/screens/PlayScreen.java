@@ -76,6 +76,8 @@ public class PlayScreen implements Screen {
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
+	public static int score;
+	
 	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
