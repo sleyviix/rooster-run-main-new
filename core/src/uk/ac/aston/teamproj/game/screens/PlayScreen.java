@@ -26,12 +26,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.net.MPClient;
 import uk.ac.aston.teamproj.game.net.MPServer;
-import uk.ac.aston.teamproj.game.net.packet.MovementJump;
-import uk.ac.aston.teamproj.game.net.packet.MovementLeft;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Jump;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Left;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Right;
-import uk.ac.aston.teamproj.game.net.packet.MovementRight;
+import uk.ac.aston.teamproj.game.net.packet.Movement;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
@@ -141,26 +136,28 @@ public class PlayScreen implements Screen {
 	                sound.play(1F);
 
 
-					MovementJump pos = new MovementJump();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 0;
+					packet.direction = 1;
+					MPClient.client.sendTCP(packet);
 
 					jumpCount1++;
 				}
 
 				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-					MovementRight pos = new MovementRight();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 0;
+					packet.direction = 2;
+
+					MPClient.client.sendTCP(packet);
 				}
 
 				if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-					MovementLeft pos = new MovementLeft();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 0;
+					packet.direction = 0;
+
+					MPClient.client.sendTCP(packet);
 				}
 			}
 		}
@@ -171,27 +168,27 @@ public class PlayScreen implements Screen {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
 	                sound.play(1F);
 
-					MovementP2Jump pos = new MovementP2Jump();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 1;
+					packet.direction = 1;
+					MPClient.client.sendTCP(packet);
 
 					jumpCount2++;
 				}
 
 				if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-					MovementP2Right pos = new MovementP2Right();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 1;
+					packet.direction = 2;
+					MPClient.client.sendTCP(packet);
 				}
 
 				if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
 				{
-					MovementP2Left pos = new MovementP2Left();
-					pos.x = player.getPositionX();
-					pos.x2 = player2.getPositionX();
-					MPClient.client.sendTCP(pos);
+					Movement packet = new Movement();
+					packet.clientID = 1;
+					packet.direction = 0;
+					MPClient.client.sendTCP(packet);
 				}
 			}
 		}
