@@ -9,12 +9,7 @@ import com.esotericsoftware.kryonet.Server;
 
 import uk.ac.aston.teamproj.game.net.packet.ChosenMap;
 import uk.ac.aston.teamproj.game.net.packet.Login;
-import uk.ac.aston.teamproj.game.net.packet.MovementJump;
-import uk.ac.aston.teamproj.game.net.packet.MovementLeft;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Jump;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Left;
-import uk.ac.aston.teamproj.game.net.packet.MovementP2Right;
-import uk.ac.aston.teamproj.game.net.packet.MovementRight;
+import uk.ac.aston.teamproj.game.net.packet.Movement;
 
 
 public class MPServer {
@@ -79,39 +74,11 @@ public class MPServer {
 					System.out.println("[" + packet.id + "] " + packet.name + " has entered the game.");
 				}
 				
-				if(object instanceof MovementJump) {
-					MovementJump pos = (MovementJump) object;
+				if(object instanceof Movement) {
+					Movement pos = (Movement) object;
 					server.sendToAllTCP(pos);
 				}
 				
-				if(object instanceof MovementLeft) {
-					MovementLeft pos = (MovementLeft) object;
-					pos.impulse = impulse;
-					server.sendToAllTCP(pos);
-				}
-				
-				if(object instanceof MovementRight) {
-					MovementRight pos = (MovementRight) object;
-					pos.impulse = impulse;
-					server.sendToAllTCP(pos);
-				}
-				
-				if(object instanceof MovementP2Jump) {
-					MovementP2Jump pos = (MovementP2Jump) object;
-					server.sendToAllTCP(pos);
-				}
-				
-				if(object instanceof MovementP2Right) {
-					MovementP2Right pos = (MovementP2Right) object;
-					pos.impulse = impulse2;
-					server.sendToAllTCP(pos);
-				}
-				
-				if(object instanceof MovementP2Left) {
-					MovementP2Left pos = (MovementP2Left) object;
-					pos.impulse = impulse2;
-					server.sendToAllTCP(pos);
-				}
 			}
 			
 		});
