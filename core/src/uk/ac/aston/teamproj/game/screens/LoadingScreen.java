@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -26,8 +27,8 @@ public class LoadingScreen implements Screen {
     private int clientID;
     private String mapPath;
     private Viewport viewport;
-    private Stage stage;
     private Game game;
+    private Texture background;
     
     public LoadingScreen(Game game, int clientID, String mapPath) {
         mGame = (MainGame) game;
@@ -40,12 +41,8 @@ public class LoadingScreen implements Screen {
         this.mapPath = mapPath;
         this.game = game;
         
-        initCamera();
-    }
-
-    private void initCamera() {        
         viewport = new FitViewport(MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6, new OrthographicCamera());
-		stage = new Stage(viewport, ((MainGame) game).batch);
+        background = new Texture("buttons/multiplayer_menu_bg.jpg");       
     }
 
     @Override
@@ -55,13 +52,16 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClearColor(0, 0, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        mGame.batch.begin();
+        mGame.batch.draw(background, 0 , 0, MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6);
+        mGame.batch.end();
+                
         long currentTimeStamp = TimeUtils.nanoTime();
-        if (currentTimeStamp - startTime > TimeUtils.millisToNanos(2)) {
+        if (currentTimeStamp - startTime > TimeUtils.millisToNanos(1)) {
             startTime = currentTimeStamp;
-            progress = progress + 0.18f;
+            progress = progress + 0.2f;
         }
         // Width of progress bar on screen relevant to Screen width
         float progressBarWidth = (MainGame.V_WIDTH/6 / 100) * progress;
@@ -78,9 +78,6 @@ public class LoadingScreen implements Screen {
         mShapeRenderer.end();
         if (progress >= 100)
             moveToPlayScreen();
-        
-		stage.draw();
-		stage.act(delta);
     }
 
     /**
