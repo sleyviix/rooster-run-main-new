@@ -23,8 +23,8 @@ import uk.ac.aston.teamproj.game.MainGame;
 public class LoadingScreen implements Screen {
     private MainGame mGame;
     private BitmapFont bf_loadProgress;
-    private long progress = 0;
-    private long startTime = 0;
+    private float progress = 0;
+    private float startTime = 0;
     private ShapeRenderer mShapeRenderer;
     private OrthographicCamera camera;
     private final int screenWidth = 800, screenHeight = 480;
@@ -69,16 +69,16 @@ public class LoadingScreen implements Screen {
     private void showLoadProgress() {
 
         long currentTimeStamp = TimeUtils.nanoTime();
-        if (currentTimeStamp - startTime > TimeUtils.millisToNanos(500)) {
+        if (currentTimeStamp - startTime > TimeUtils.millisToNanos(2)) {
             startTime = currentTimeStamp;
-            progress = progress + 5;
+            progress = progress + 0.18f;
         }
         // Width of progress bar on screen relevant to Screen width
         float progressBarWidth = (screenWidth / 100) * progress;
 
         mGame.batch.setProjectionMatrix(camera.combined);
         mGame.batch.begin();
-        bf_loadProgress.draw(mGame.batch, "Loading " + progress + " / " + 100, 10, 40);
+        bf_loadProgress.draw(mGame.batch, "Loading " + Math.round(progress) + " / " + 100, 10, 40);
         mGame.batch.end();
 
         mShapeRenderer.setProjectionMatrix(camera.combined);
@@ -86,7 +86,7 @@ public class LoadingScreen implements Screen {
         mShapeRenderer.setColor(Color.YELLOW);
         mShapeRenderer.rect(0, 10, progressBarWidth, 10);
         mShapeRenderer.end();
-        if (progress == 100)
+        if (progress >= 100)
             moveToMenuScreen();
 
     }
