@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import uk.ac.aston.teamproj.game.net.MPServer;
+import uk.ac.aston.teamproj.game.screens.CreateScreen;
 import uk.ac.aston.teamproj.game.screens.MainMenuScreen;
 import uk.ac.aston.teamproj.game.screens.PlayScreen;
 
@@ -41,7 +42,7 @@ public class MainGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();	
-		setScreen(new MainMenuScreen(this));
+		setScreen(new CreateScreen(this));
 	}
 	
 	public void startGame() {

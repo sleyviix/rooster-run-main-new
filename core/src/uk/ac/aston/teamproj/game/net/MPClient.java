@@ -96,7 +96,7 @@ public class MPClient {
 		try {
 			client.connect(50000, ip, Network.TCP_PORT, Network.UDP_PORT);
 			requestLogin();
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(1);
 			game.setScreen(new PlayScreen(game, client.getID(), mapPath));
 			
 		} catch (Exception e) {
