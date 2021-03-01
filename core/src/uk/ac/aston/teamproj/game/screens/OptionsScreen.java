@@ -14,32 +14,23 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 import uk.ac.aston.teamproj.game.MainGame;
-import uk.ac.aston.teamproj.game.net.MPClient;
 import uk.ac.aston.teamproj.game.scenes.SoundManager;
+ class OptionsScreen implements Screen{
 
-/** 
- * @author Suleman
- * @since 5.1.1
- * @date 14/12/2020
- */
-
-public class MultiplayerMenuScreen implements Screen {
-	
-	
-	private Label lbl_ip, lbl_name;
 	private LabelStyle lbl_style;
-	private TextField txt_ip, txt_name;
+	
 	public static String ip = "Localhost", name = "Player 1"; // change with user input
 	private Skin txt_skin;
 	private TextButtonStyle btn_style;
@@ -48,9 +39,12 @@ public class MultiplayerMenuScreen implements Screen {
 	private Stage stage;
 	private TextureAtlas buttonsAtlas; //the sprite-sheet containing all buttons
 	private Skin skin; //skin for buttons
+	private TextureAtlas buttonsAtlas1; //the sprite-sheet containing all buttons
+	private Skin skin1; //skin for buttons
 	private ImageButton[] buttons;
+	private static boolean soundsPlaying = true;
 
-	public MultiplayerMenuScreen(MainGame game) {
+	public OptionsScreen(MainGame game) {
 		this.game = game;
 		viewport = new FitViewport(MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6, new OrthographicCamera());
 		stage = new Stage(viewport, ((MainGame) game).batch);
@@ -67,82 +61,72 @@ public class MultiplayerMenuScreen implements Screen {
 		
 		buttonsAtlas = new TextureAtlas("buttons/MyButtons.pack");
 		skin = new Skin(buttonsAtlas);
+		
+		buttonsAtlas1 = new TextureAtlas("OptionsButtons.pack");
+		skin1 = new Skin(buttonsAtlas1);
 		buttons = new ImageButton[3];
 		
 		initializeButtons();		
 		populateTable();		
 	}
+
 	
 	private void initializeButtons() {		
 		ImageButtonStyle style;
 		
-		//Continue Button
+		//audio_on button
 		style = new ImageButtonStyle();
-		style.up = skin.getDrawable("continue_inactive");  //set default image
-		style.over = skin.getDrawable("continue_active");  //set image for mouse over
+		style.up = skin1.getDrawable("audio_on_inactive");  //set default image
+		style.over = skin1.getDrawable("audio_on_active");  //set image for mouse over
 		
-		ImageButton continueBtn = new ImageButton(style);
-		continueBtn.addListener(new InputListener() {
-	            @Override
+		ImageButton soundBtn = new ImageButton(style);
+		soundBtn.addListener(new InputListener() {
+	            @Override	
 	            
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-
-
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	            	SoundManager.playSound(sound);
-
-	               //plays button sounds
+	            	SoundManager.SoundsOn();
 	            	
-	            	//Starts LocalHost Multiplayer
+	            		
+	            	
+	            		Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+		            	SoundManager.playSound(sound);
+		            
+	              	System.out.println("Sound");
+	              	return true;
 	         
 	            	
-
-	    			txt_ip.setTextFieldListener(new TextField.TextFieldListener() {
-	    	
-	    				@Override
-	    				public void keyTyped(TextField textField, char c) {
-
-	    					 //plays button pop sound
-
-	    	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	            	SoundManager.playSound(sound);
-
-	    					
-	    			
-
-	    					ip = textField.getText();
-	    					
-	    				}
-	    			});
-	    			txt_name.setTextFieldListener(new TextField.TextFieldListener() {
-	    				
-	    				@Override
-	    				public void keyTyped(TextField textField, char c) {
-
-
-	    					 //plays button pop sound
-
-	    	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	            	SoundManager.playSound(sound);
-
-
-	    				
-	    					name = textField.getText();
-	    				
-	    				}
-	    			});
-
-	    			new MPClient(txt_ip.getText(), txt_name.getText(), game);
-	    			dispose();
-	    			/*
-	    			 * Port and IP are predefined
-	    			 * [TO DO] input from the users.
-	    			 * 
-	    			 */
-	            	System.out.println("Continue");
-	            	return true;
+	            }
+		});
 		
-		}});
+		//audio_off button
+				style = new ImageButtonStyle();
+				style.up = skin1.getDrawable("audio_off_inactive");  //set default image
+				style.over = skin1.getDrawable("audio_off_active");  //set image for mouse over
+				
+				ImageButton soundOffBtn = new ImageButton(style);
+				soundOffBtn.addListener(new InputListener() {
+			            @Override	
+			            
+			            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+			            	SoundManager.playSound(sound);
+			            	SoundManager.SoundsOff();
+							
+			            	
+				            	
+			            	
+			            		
+			            	
+			          
+				          
+			              	System.out.println("Sound");
+			            	
+			              	return true;
+			         
+			            	
+			            }
+				});
+	          
 		
 		
 		
@@ -155,44 +139,25 @@ public class MultiplayerMenuScreen implements Screen {
 		backBtn.addListener(new InputListener() {
 	            @Override
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	//Sets to playScreen
-
-	            	 //plays button pop sound
-
+	       
 
 	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
 	            	SoundManager.playSound(sound);
 	            	System.out.println("Back");
-	            	MultiplayerMenuScreen.this.dispose();
+	            	OptionsScreen.this.dispose();
 	            	game.setScreen(new MainMenuScreen(game));
 	            	return true;
 	            }	       
 		});
 		
 		
-		/*
-		//Quit Button
-		style = new ImageButtonStyle();
-		style.up = skin.getDrawable("quit_inactive");  //set default image
-		style.over = skin.getDrawable("quit_active");  //set image for mouse over
 		
-		ImageButton quitBtn = new ImageButton(style);
-		quitBtn.addListener(new InputListener() {
-	            @Override
-	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	                //do something
-	            	System.out.println("QUIT");
-	            	Gdx.app.exit();
-	            	return true;
-	            }	       
-	    });
+
 		
-		*/
+		buttons[1] = soundBtn;
+		buttons[0] = backBtn;
+		buttons[2] = soundOffBtn;
 		
-		buttons[0] = continueBtn;
-		buttons[1] = backBtn;
-		//buttons[2] = tutorialBtn;
-		//buttons[2] = quitBtn;
 	}
 	
 	private void populateTable() {
@@ -205,22 +170,12 @@ public class MultiplayerMenuScreen implements Screen {
 		table.background(new TextureRegionDrawable(new TextureRegion(background)));
 		
 		//initialise Label
-		lbl_ip = new Label("IP Address:" , lbl_style);
-		lbl_name = new Label("Name: " , lbl_style);
-		
-		//initialise TextField
-		txt_ip = new TextField("localhost", txt_skin);
-		txt_name = new TextField(name, txt_skin);
+
 		
 		
-		//add contents to table
-		table.add(lbl_ip).expandX();
-		table.add(txt_ip).width(200).pad(4);
-		table.row();
-		table.add(lbl_name).expandX();
-		table.add(txt_name).width(200).pad(4);
-		table.row();
-		
+	
+
+
 		
 		
 		//table.add(singleBtn).height(17.5f).width(100).pad(4).padLeft(200).padTop(50);
@@ -237,6 +192,8 @@ public class MultiplayerMenuScreen implements Screen {
 		stage.addActor(table);		
 		Gdx.input.setInputProcessor(stage);
 	}
+	
+
 	
 	@Override
     public void show() {
@@ -284,3 +241,6 @@ public class MultiplayerMenuScreen implements Screen {
 		stage.dispose();
 	}
 }
+
+
+

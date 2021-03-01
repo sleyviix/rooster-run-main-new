@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import uk.ac.aston.teamproj.game.MainGame;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.screens.PlayScreen;
 
 /**
@@ -53,7 +54,7 @@ public class Bomb extends InteractiveTileObject {
 	public void onHit() {
 		//for now, just log the event to the console
 	   	Sound sound = Gdx.audio.newSound(Gdx.files.internal("bomb.wav"));
-        sound.play(1F);
+	   	SoundManager.playSound(sound);
 		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Bomb Collision");
 	
 		//set category to destroyed bit

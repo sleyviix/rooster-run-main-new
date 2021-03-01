@@ -34,6 +34,7 @@ import uk.ac.aston.teamproj.game.net.packet.MovementP2Right;
 import uk.ac.aston.teamproj.game.net.packet.MovementRight;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
 import uk.ac.aston.teamproj.game.sprites.Rooster;
 import uk.ac.aston.teamproj.game.tools.B2WorldCreator;
@@ -61,7 +62,7 @@ public class PlayScreen implements Screen {
 	// Box2d variables
 	private World world;
 	private Box2DDebugRenderer b2dr;
-
+	private  boolean soundsPlaying = true;
 	// Sprites
 	public static Rooster player;
 	public static Rooster player2;
@@ -166,7 +167,7 @@ public class PlayScreen implements Screen {
 			if (player2.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {	
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	                sound.play(1F);
+	                SoundManager.playSound(sound);
 					
 					MovementP2Jump pos = new MovementP2Jump();
 					pos.x = player.getPositionX();
@@ -375,7 +376,8 @@ public class PlayScreen implements Screen {
 		}
 		return false;
 	}
-
+	
+	
 	private boolean gameFinished() {
 
 		if (clientID == MPServer.playerCount.get(0)) {

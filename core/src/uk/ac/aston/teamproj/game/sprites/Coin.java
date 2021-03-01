@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.scenes.Hud;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.screens.PlayScreen;
 
 public class Coin extends InteractiveTileObjectCircular {
@@ -27,7 +28,7 @@ public class Coin extends InteractiveTileObjectCircular {
 	public void onHit() {
 		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Coin Collision");
 	   	Sound sound = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
-        sound.play(1F);
+	   	SoundManager.playSound(sound);
 		//set category to destroyed bit
 		setCategoryFilter(MainGame.DESTROYED_BIT);
 		getCell().setTile(null);
