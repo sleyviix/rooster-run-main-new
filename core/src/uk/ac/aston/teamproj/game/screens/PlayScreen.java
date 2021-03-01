@@ -280,11 +280,13 @@ public class PlayScreen implements Screen {
 	}
 
 	public void updateCoins() {
-		hud.updateCoins(10);
+		//hud.updateCoins(10);
+		progressBar.updateCoins(1);
 	}
 
 	public void updateLives() {
-		hud.updateLives();
+		//hud.updateLives();
+		progressBar.updateLives();
 	}
 
 	public void updateCoinsP2() {
