@@ -61,7 +61,7 @@ public class LoadingScreen implements Screen {
         long currentTimeStamp = TimeUtils.nanoTime();
         if (currentTimeStamp - startTime > TimeUtils.millisToNanos(1)) {
             startTime = currentTimeStamp;
-            progress = progress + 10.3f;
+            progress = progress + 0.3f;
         }
         // Width of progress bar on screen relevant to Screen width
         float progressBarWidth = (MainGame.V_WIDTH/6 / 100) * progress;

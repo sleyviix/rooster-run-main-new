@@ -196,7 +196,7 @@ public class Rooster extends Sprite {
 	
 	private void defineRooster() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(45000 / MainGame.PPM, 300 / MainGame.PPM);
+		bdef.position.set(600 / MainGame.PPM, 300 / MainGame.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 				
