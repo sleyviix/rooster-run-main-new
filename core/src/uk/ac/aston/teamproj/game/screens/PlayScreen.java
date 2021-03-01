@@ -220,12 +220,14 @@ public class PlayScreen implements Screen {
 		player2.update(dt);
 
 		// update score based on location
-		if (player.getPositionX() * MainGame.PPM > (hud.getScore() + 1) * SCORE_LOC) {
-			hud.updateScore();
-		}
-		if (player2.getPositionX() * MainGame.PPM > (hud2.getScore() + 1) * SCORE_LOC) {
-			hud2.updateScore();
-		}
+//		if (player.getPositionX() * MainGame.PPM > (hud.getScore() + 1) * SCORE_LOC) {
+//			hud.updateScore();
+//		}
+//		if (player2.getPositionX() * MainGame.PPM > (hud2.getScore() + 1) * SCORE_LOC) {
+//			hud2.updateScore();
+//		}
+		
+		progressBar.updateProgress(player.getPositionX());
 
 		// Everytime chicken moves we want to track him with our game cam
 		if (clientID == MPServer.playerCount.get(0))

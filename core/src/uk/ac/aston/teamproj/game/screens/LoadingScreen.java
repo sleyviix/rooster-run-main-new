@@ -35,7 +35,6 @@ public class LoadingScreen implements Screen {
         mGame = (MainGame) game;
         batch = mGame.batch;
         bf_loadProgress = new BitmapFont();
-        //bf_loadProgress.setScale(2, 1);
         mShapeRenderer = new ShapeRenderer();
         startTime = TimeUtils.nanoTime();
         
@@ -62,14 +61,14 @@ public class LoadingScreen implements Screen {
         long currentTimeStamp = TimeUtils.nanoTime();
         if (currentTimeStamp - startTime > TimeUtils.millisToNanos(1)) {
             startTime = currentTimeStamp;
-            progress = progress + 0.2f;
+            progress = progress + 10.3f;
         }
         // Width of progress bar on screen relevant to Screen width
         float progressBarWidth = (MainGame.V_WIDTH/6 / 100) * progress;
 
         batch.setProjectionMatrix(batch.getProjectionMatrix());
         batch.begin();
-        bf_loadProgress.draw(batch, "Loading " + Math.round(progress) + " / " + 100, 10, 40);
+        bf_loadProgress.draw(batch, "Loading " + Math.round(progress) + "%", 10, 40);
         batch.end();
         
         mShapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
@@ -91,7 +90,6 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
 		viewport.update(width, height, true);
     }
 
@@ -115,5 +113,4 @@ public class LoadingScreen implements Screen {
         bf_loadProgress.dispose();
         mShapeRenderer.dispose();
     }
-
 }
