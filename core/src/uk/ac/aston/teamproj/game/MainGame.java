@@ -42,7 +42,7 @@ public class MainGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();	
-		setScreen(new CreateScreen(this));
+		setScreen(new MainMenuScreen(this));
 	}
 	
 	public void startGame() {

@@ -45,7 +45,7 @@ public class PlayerProgressBar implements Disposable {
 		// progress bar
 		background = new Image(new Texture("progress_bar/grey_bar.png"));
 		player = new Image(new Texture("progress_bar/rooster_new.png"));		
-		background.setColor(1f, 1f, 1f, 0.6f);
+		background.setColor(1f, 1f, 1f, 0.45f);
 		background.setBounds(10, 370, BAR_WIDTH, BAR_HEIGHT);
 		player.setColor(1f, 1f, 1f, 0.6f);		
 		
@@ -67,7 +67,7 @@ public class PlayerProgressBar implements Disposable {
 		
 		for (int i = 0, x = 650; i < hearts.length; i++, x += 40) {
 			hearts[i].setColor(1f, 1f, 1f, 0.6f);
-			hearts[i].setBounds(x, 370, 35, 28);
+			hearts[i].setBounds(x, 374, 32, 25);
 		}
 	}
 
