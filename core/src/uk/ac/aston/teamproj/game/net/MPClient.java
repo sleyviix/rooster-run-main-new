@@ -13,6 +13,7 @@ import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.net.packet.ChosenMap;
 import uk.ac.aston.teamproj.game.net.packet.Login;
 import uk.ac.aston.teamproj.game.net.packet.Movement;
+import uk.ac.aston.teamproj.game.screens.LoadingScreen;
 import uk.ac.aston.teamproj.game.screens.PlayScreen;
 
 public class MPClient {
@@ -96,8 +97,8 @@ public class MPClient {
 		try {
 			client.connect(50000, ip, Network.TCP_PORT, Network.UDP_PORT);
 			requestLogin();
-			TimeUnit.SECONDS.sleep(10);
-			game.setScreen(new PlayScreen(game, client.getID(), mapPath));
+			//TimeUnit.SECONDS.sleep(10);
+			game.setScreen(new LoadingScreen(game, client.getID(), mapPath));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

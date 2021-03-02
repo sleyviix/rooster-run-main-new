@@ -29,6 +29,7 @@ import uk.ac.aston.teamproj.game.net.MPServer;
 import uk.ac.aston.teamproj.game.net.packet.Movement;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
+import uk.ac.aston.teamproj.game.scenes.PlayerProgressBar;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
 import uk.ac.aston.teamproj.game.sprites.Rooster;
 import uk.ac.aston.teamproj.game.tools.B2WorldCreator;
@@ -73,6 +74,8 @@ public class PlayScreen implements Screen {
 	
 	public static int score;
 	
+	private final PlayerProgressBar progressBar;
+	
 	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
@@ -87,6 +90,7 @@ public class PlayScreen implements Screen {
 		// Create our game HUD for scores /timers/level info/players in the game etc
 		hud = new Hud(game.batch);
 		hud2 = new Hud2(game.batch);
+		progressBar = new PlayerProgressBar(game.batch);
 
 		// Load our map and setup our map renderer
 		mapLoader = new TmxMapLoader();
@@ -216,12 +220,14 @@ public class PlayScreen implements Screen {
 		player2.update(dt);
 
 		// update score based on location
-		if (player.getPositionX() * MainGame.PPM > (hud.getScore() + 1) * SCORE_LOC) {
-			hud.updateScore();
-		}
-		if (player2.getPositionX() * MainGame.PPM > (hud2.getScore() + 1) * SCORE_LOC) {
-			hud2.updateScore();
-		}
+//		if (player.getPositionX() * MainGame.PPM > (hud.getScore() + 1) * SCORE_LOC) {
+//			hud.updateScore();
+//		}
+//		if (player2.getPositionX() * MainGame.PPM > (hud2.getScore() + 1) * SCORE_LOC) {
+//			hud2.updateScore();
+//		}
+		if (player.currentState != Rooster.State.DEAD)
+			progressBar.updateProgress(player.getPositionX());
 
 		// Everytime chicken moves we want to track him with our game cam
 		if (clientID == MPServer.playerCount.get(0))
@@ -274,11 +280,13 @@ public class PlayScreen implements Screen {
 	}
 
 	public void updateCoins() {
-		hud.updateCoins(10);
+		//hud.updateCoins(10);
+		progressBar.updateCoins(1);
 	}
 
 	public void updateLives() {
-		hud.updateLives();
+		//hud.updateLives();
+		progressBar.updateLives();
 	}
 
 	public void updateCoinsP2() {
@@ -312,18 +320,18 @@ public class PlayScreen implements Screen {
 		game.batch.end();
 
 		// Set our batch to now draw what the hud camera sees
-		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-		hud.stage.draw();
+//		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+//		hud.stage.draw();
 
-		game.batch.setProjectionMatrix(hud2.stage.getCamera().combined);
-		hud2.stage.draw();
-
+//		game.batch.setProjectionMatrix(hud2.stage.getCamera().combined);
+//		hud2.stage.draw();
+		
+		progressBar.draw();
+		
 		if (gameOver()) {
 			game.setScreen(new GameOverScreen(game));
 			dispose();
-		}
-
-		else if (gameFinished()) {
+		} else if (gameFinished()) {
 			game.setScreen(new GameFinishedScreen(game));
 			dispose();
 		}
