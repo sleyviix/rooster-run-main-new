@@ -22,8 +22,7 @@ public class LoadingScreen implements Screen {
     private MainGame mGame;
     private Batch batch;
     private BitmapFont bf_loadProgress;
-    private float progress = 0;
-    private float startTime = 0;
+    private long startTime;
     private ShapeRenderer mShapeRenderer;
 
     private int clientID;
@@ -36,13 +35,14 @@ public class LoadingScreen implements Screen {
         batch = mGame.batch;
         bf_loadProgress = new BitmapFont();
         mShapeRenderer = new ShapeRenderer();
-        startTime = TimeUtils.nanoTime();
         
         this.clientID = clientID;
         this.mapPath = mapPath;
         
         viewport = new FitViewport(MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6, new OrthographicCamera());
-        background = new Texture("buttons/multiplayer_menu_bg.jpg");       
+        background = new Texture("buttons/multiplayer_menu_bg.jpg");   
+        
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -58,11 +58,8 @@ public class LoadingScreen implements Screen {
         batch.draw(background, 0 , 0, MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6);
         batch.end();
                 
-        long currentTimeStamp = TimeUtils.nanoTime();
-        if (currentTimeStamp - startTime > TimeUtils.millisToNanos(1)) {
-            startTime = currentTimeStamp;
-            progress = progress + 0.35f;
-        }
+        float elapsedTime = (System.currentTimeMillis() - startTime) / 1000.0f;
+        float progress = elapsedTime * 10;
         // Width of progress bar on screen relevant to Screen width
         float progressBarWidth = (MainGame.V_WIDTH/6 / 100) * progress;
 
