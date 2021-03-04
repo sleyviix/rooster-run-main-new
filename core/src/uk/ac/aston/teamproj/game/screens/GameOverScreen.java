@@ -7,14 +7,18 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import uk.ac.aston.teamproj.game.MainGame;
+import uk.ac.aston.teamproj.game.scenes.Hud;
 
 /**
  * 
@@ -44,15 +48,19 @@ public class GameOverScreen implements Screen {
 		table.center();
 		table.setFillParent(true);
 		
-		Label gameOverLabel = new Label ("GAME OVER", font);
+		
 		Label playAgainLabel = new Label ("Click Screen to Play Again", font);
-		Label showScore = new Label (showScore(), font);
-		table.add(gameOverLabel).expandX();
+		Label showScore = new Label (showCoins(), font);
+		
 		table.row();
-		table.add(playAgainLabel).expandX().padTop(10f);
+		table.add(playAgainLabel).expandX().padTop(80f);
 		table.row();
 		table.add(showScore).expandX();
 		stage.addActor(table);
+		
+		
+		Texture background = new Texture("buttons/untitled.png");
+		table.background(new TextureRegionDrawable(new TextureRegion(background)));
 	}
 	
 	@Override
@@ -61,15 +69,16 @@ public class GameOverScreen implements Screen {
 		
 	}
 	
-	public String showScore() {
-		return "Your score is: " + PlayScreen.score;
+	public String showCoins() {
+		return "Coins Collected: " + PlayScreen.coins;
+		
 	}
 
 	@Override
 	public void render(float delta) {
 		
 		if(Gdx.input.justTouched()) {
-			game.setScreen(new MainMenuScreen(( MainGame )game));
+			game.setScreen(new MultiplayerMenuScreen(( MainGame )game));
 			dispose();
 		}
 		

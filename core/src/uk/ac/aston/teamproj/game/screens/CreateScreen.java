@@ -78,8 +78,8 @@ public class CreateScreen implements Screen {
 		initializeButtons();		
 		populateTable();
 		
-		mapsImages[0] = new Texture("Map1.jpg");
-		mapsImages[1] = new Texture("Map2.jpg");
+		mapsImages[0] = new Texture("easymap.png");
+		mapsImages[1] = new Texture("hardmap.png");
 		mapsPaths[0] = "map_beginner_fix";
 		mapsPaths[1] = "map_hard";
 	}
@@ -125,6 +125,14 @@ public class CreateScreen implements Screen {
 	    				} catch (IOException e) {
 	    					e.printStackTrace();
 	    				}
+	    			}
+	    			else {
+	    				MPServer.server.close();
+	    				try {
+							new MPServer(mapsPaths[mapIdx]);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 	    			}
 	    			
 	    			new MPClient(txt_ip.getText(), txt_name.getText(), game);
