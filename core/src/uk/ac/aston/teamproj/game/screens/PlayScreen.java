@@ -74,6 +74,7 @@ public class PlayScreen implements Screen {
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 	
 	public static int score;
+	public static int coins;
 	
 	private final PlayerProgressBar progressBar;
 	
@@ -374,10 +375,12 @@ public class PlayScreen implements Screen {
 	// TEMP
 	private boolean gameOver() {
 		if (clientID == MPServer.playerCount.get(0)) {
+			coins = hud.getCoins();
 			score = hud.getScore();
 			return (player.currentState == Rooster.State.DEAD && player.getStateTimer() > 3);
 		}
 		if (clientID == MPServer.playerCount.get(1)) {
+			coins = hud2.getCoins();
 			score = hud2.getScore();
 			return (player2.currentState == Rooster.State.DEAD && player2.getStateTimer() > 3);
 		}
