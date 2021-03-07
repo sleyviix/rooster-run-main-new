@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import uk.ac.aston.teamproj.game.MainGame;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 
 /**
  * 
@@ -32,7 +33,7 @@ public class GameOverScreen implements Screen {
 	
 	public GameOverScreen(Game game) {
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("gameover.mp3"));
-        sound.play(1F);
+        SoundManager.playSound(sound);
 		
 		this.game = game;
 		viewport = new FitViewport(MainGame.V_WIDTH/6, MainGame.V_HEIGHT/6, new OrthographicCamera());

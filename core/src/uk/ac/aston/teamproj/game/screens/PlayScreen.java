@@ -30,6 +30,7 @@ import uk.ac.aston.teamproj.game.net.packet.Movement;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
 import uk.ac.aston.teamproj.game.scenes.PlayerProgressBar;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
 import uk.ac.aston.teamproj.game.sprites.Rooster;
 import uk.ac.aston.teamproj.game.tools.B2WorldCreator;
@@ -137,8 +138,7 @@ public class PlayScreen implements Screen {
 
 					 //plays button swoosh sound
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	                sound.play(1F);
-
+	              SoundManager.playSound(sound);
 
 					Movement packet = new Movement();
 					packet.clientID = 0;
@@ -170,8 +170,7 @@ public class PlayScreen implements Screen {
 			if (player2.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	                sound.play(1F);
-
+	               SoundManager.playSound(sound);
 					Movement packet = new Movement();
 					packet.clientID = 1;
 					packet.direction = 1;
