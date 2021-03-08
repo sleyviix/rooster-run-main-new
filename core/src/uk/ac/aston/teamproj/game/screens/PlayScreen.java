@@ -30,7 +30,6 @@ import uk.ac.aston.teamproj.game.net.packet.Movement;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
 import uk.ac.aston.teamproj.game.scenes.PlayerProgressBar;
-import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
 import uk.ac.aston.teamproj.game.sprites.Rooster;
 import uk.ac.aston.teamproj.game.tools.B2WorldCreator;
@@ -59,7 +58,7 @@ public class PlayScreen implements Screen {
 	// Box2d variables
 	private World world;
 	private Box2DDebugRenderer b2dr;
-	private  boolean soundsPlaying = true;
+
 	// Sprites
 	public static Rooster player;
 	public static Rooster player2;
@@ -72,12 +71,13 @@ public class PlayScreen implements Screen {
 	// multiplayer
 	public static int clientID;
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
-
-	public static int score;
+	
+	//Stats
+	
 	public static int coins;
-
+	
 	private final PlayerProgressBar progressBar;
-
+	
 	public PlayScreen(MainGame game, int clientID, String mapPath) {
 		this.game = game;
 		PlayScreen.clientID = clientID;
@@ -139,7 +139,8 @@ public class PlayScreen implements Screen {
 
 					 //plays button swoosh sound
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	              SoundManager.playSound(sound);
+	                sound.play(1F);
+
 
 					Movement packet = new Movement();
 					packet.clientID = 0;
@@ -171,7 +172,8 @@ public class PlayScreen implements Screen {
 			if (player2.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	               SoundManager.playSound(sound);
+	                sound.play(1F);
+
 					Movement packet = new Movement();
 					packet.clientID = 1;
 					packet.direction = 1;
@@ -325,9 +327,9 @@ public class PlayScreen implements Screen {
 
 //		game.batch.setProjectionMatrix(hud2.stage.getCamera().combined);
 //		hud2.stage.draw();
-
+		
 		progressBar.draw();
-
+		
 		if (gameOver()) {
 			game.setScreen(new GameOverScreen(game));
 			dispose();
@@ -375,18 +377,15 @@ public class PlayScreen implements Screen {
 	// TEMP
 	private boolean gameOver() {
 		if (clientID == MPServer.playerCount.get(0)) {
-			coins = hud.getCoins();
-			score = hud.getScore();
+			coins = progressBar.getCoinsCollected();
 			return (player.currentState == Rooster.State.DEAD && player.getStateTimer() > 3);
 		}
 		if (clientID == MPServer.playerCount.get(1)) {
-			coins = hud2.getCoins();
-			score = hud2.getScore();
+			coins = progressBar.getCoinsCollected();
 			return (player2.currentState == Rooster.State.DEAD && player2.getStateTimer() > 3);
 		}
 		return false;
 	}
-
 
 	private boolean gameFinished() {
 

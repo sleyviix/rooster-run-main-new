@@ -114,4 +114,8 @@ public class PlayerProgressBar implements Disposable {
 		if (lives < hearts.length)
 			hearts[lives].setVisible(false);
 	}
+	
+	public int getCoinsCollected() {
+		return coinsCollected;
+	}
 }
