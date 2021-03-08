@@ -30,6 +30,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.net.MPClient;
 import uk.ac.aston.teamproj.game.net.MPServer;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 
 public class CreateScreen implements Screen {
 		
@@ -98,14 +99,13 @@ public class CreateScreen implements Screen {
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
 	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	                sound.play(1F);  
-	            	
+	            	SoundManager.playSound(sound);	
 	    			txt_ip.setTextFieldListener(new TextField.TextFieldListener() {
 	    	
 	    				@Override
 	    				public void keyTyped(TextField textField, char c) {
-	    					Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	                sound.play(1F);				
+	    				 	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	    	            	SoundManager.playSound(sound);			
 	    					ip = textField.getText();
 	    				}
 	    			});
@@ -113,8 +113,8 @@ public class CreateScreen implements Screen {
 	    				
 	    				@Override
 	    				public void keyTyped(TextField textField, char c) {
-	    					Sound sound2 = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	                sound2.play(1F);
+	    				 	Sound sound2 = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	    	            	SoundManager.playSound(sound2);
 	    					name = textField.getText();
 	    				}
 	    			});
@@ -159,7 +159,7 @@ public class CreateScreen implements Screen {
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
 	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	                sound.play(1F);
+	            	SoundManager.playSound(sound);	
 	            	System.out.println("Back");
 	            	CreateScreen.this.dispose();
 	            	game.setScreen(new MultiplayerMenuScreen(game));
@@ -180,7 +180,7 @@ public class CreateScreen implements Screen {
 	            @Override
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	                sound.play(1F);
+	            	SoundManager.playSound(sound);	
 	            	if (mapIdx > 0) {
 	            		mapIdx --;
 	            	} else {
@@ -200,7 +200,7 @@ public class CreateScreen implements Screen {
 	            @Override
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	                sound.play(1F);
+	            	SoundManager.playSound(sound);	
 	            	mapIdx = (mapIdx + 1) % NUM_MAPS;
 	            	return true;
 	            }					       
