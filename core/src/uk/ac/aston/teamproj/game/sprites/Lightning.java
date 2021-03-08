@@ -17,25 +17,25 @@ public class Lightning extends InteractiveTileObjectCircular {
 
 	public Lightning(World world, TiledMap map, Ellipse bounds) {
 		super(world, map, bounds);
-		
+
 		fixture.setUserData(this);
 		setCategoryFilter(MainGame.LIGHTNING_BIT);
 	}
-	
+
 	@Override
 	public void onHit() {
-		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Lightning Collision");	
-	   	Sound sound = Gdx.audio.newSound(Gdx.files.internal("lightening.mp3"));
-	   	SoundManager.playSound(sound);
+		Gdx.app.log(String.valueOf(PlayScreen.clientID), "Lightning Collision");
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("lightening.mp3"));
+        SoundManager.playSound(sound);
 		//set category to destroyed bit
 		setCategoryFilter(MainGame.DESTROYED_BIT);
 		getCell().setTile(null);
-	} 	
+	}
 
 	@Override
 	public TiledMapTileLayer.Cell getCell() {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(2);
-		return layer.getCell((int) (body.getPosition().x * MainGame.PPM/96), 
+		return layer.getCell((int) (body.getPosition().x * MainGame.PPM/96),
 				(int) (body.getPosition().y * MainGame.PPM/96));
 	}
 }

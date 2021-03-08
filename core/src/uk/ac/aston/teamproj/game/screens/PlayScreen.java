@@ -30,6 +30,7 @@ import uk.ac.aston.teamproj.game.net.packet.Movement;
 import uk.ac.aston.teamproj.game.scenes.Hud;
 import uk.ac.aston.teamproj.game.scenes.Hud2;
 import uk.ac.aston.teamproj.game.scenes.PlayerProgressBar;
+import uk.ac.aston.teamproj.game.scenes.SoundManager;
 import uk.ac.aston.teamproj.game.sprites.Bomb;
 import uk.ac.aston.teamproj.game.sprites.Rooster;
 import uk.ac.aston.teamproj.game.tools.B2WorldCreator;
@@ -73,6 +74,7 @@ public class PlayScreen implements Screen {
 	private HashMap<Bomb, Float> toExplode = new HashMap<>();
 
 	public static int score;
+	public static int coins;
 
 	private final PlayerProgressBar progressBar;
 
@@ -137,8 +139,7 @@ public class PlayScreen implements Screen {
 
 					 //plays button swoosh sound
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	                sound.play(1F);
-
+	              SoundManager.playSound(sound);
 
 					Movement packet = new Movement();
 					packet.clientID = 0;
@@ -170,8 +171,7 @@ public class PlayScreen implements Screen {
 			if (player2.currentState != Rooster.State.DEAD) {
 				if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && jumpCount2 < MAX_JUMPS) {
 					Sound sound = Gdx.audio.newSound(Gdx.files.internal("electric-transition-super-quick-www.mp3"));
-	                sound.play(1F);
-
+	               SoundManager.playSound(sound);
 					Movement packet = new Movement();
 					packet.clientID = 1;
 					packet.direction = 1;
@@ -375,10 +375,12 @@ public class PlayScreen implements Screen {
 	// TEMP
 	private boolean gameOver() {
 		if (clientID == MPServer.playerCount.get(0)) {
+			coins = hud.getCoins();
 			score = hud.getScore();
 			return (player.currentState == Rooster.State.DEAD && player.getStateTimer() > 3);
 		}
 		if (clientID == MPServer.playerCount.get(1)) {
+			coins = hud2.getCoins();
 			score = hud2.getScore();
 			return (player2.currentState == Rooster.State.DEAD && player2.getStateTimer() > 3);
 		}

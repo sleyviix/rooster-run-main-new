@@ -73,7 +73,7 @@ public class MultiplayerMenuScreen implements Screen {
             	 //plays button pop sound
 
             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-                sound.play(1F);
+                SoundManager.playSound(sound);
             	System.out.println("Create");
             	MultiplayerMenuScreen.this.dispose();
             	game.setScreen(new CreateScreen(game));
@@ -93,9 +93,8 @@ public class MultiplayerMenuScreen implements Screen {
             	//Sets to playScreen
 
             	 //plays button pop sound
-
-            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-                sound.play(1F);
+             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+            	SoundManager.playSound(sound);
             	System.out.println("Join");
             	MultiplayerMenuScreen.this.dispose();
             	game.setScreen(new JoinScreen(game));
@@ -171,12 +170,7 @@ public class MultiplayerMenuScreen implements Screen {
 		backBtn.addListener(new InputListener() {
 	            @Override
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	            	//Sets to playScreen
-
-	            	 //plays button pop sound
-
-
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
 	            	SoundManager.playSound(sound);
 	            	System.out.println("Back");
 	            	MultiplayerMenuScreen.this.dispose();
