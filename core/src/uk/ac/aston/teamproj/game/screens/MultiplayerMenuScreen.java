@@ -26,7 +26,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import uk.ac.aston.teamproj.game.MainGame;
 import uk.ac.aston.teamproj.game.net.MPClient;
-import uk.ac.aston.teamproj.game.scenes.SoundManager;
 
 /**
  * @author Suleman
@@ -52,7 +51,7 @@ public class MultiplayerMenuScreen implements Screen {
 		skin = new Skin(buttonsAtlas);
 		buttons = new ImageButton[3];
 
-		initializeButtons();
+		initializeButtons();		
 		populateTable();
 	}
 
@@ -73,7 +72,7 @@ public class MultiplayerMenuScreen implements Screen {
             	 //plays button pop sound
 
             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-                SoundManager.playSound(sound);
+                sound.play(1F);
             	System.out.println("Create");
             	MultiplayerMenuScreen.this.dispose();
             	game.setScreen(new CreateScreen(game));
@@ -93,72 +92,15 @@ public class MultiplayerMenuScreen implements Screen {
             	//Sets to playScreen
 
             	 //plays button pop sound
-             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-            	SoundManager.playSound(sound);
+
+            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+                sound.play(1F);
             	System.out.println("Join");
             	MultiplayerMenuScreen.this.dispose();
             	game.setScreen(new JoinScreen(game));
             	return true;
             }
 		});
-
-
-	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	            	SoundManager.playSound(sound);
-
-	               //plays button sounds
-
-	            	//Starts LocalHost Multiplayer
-
-
-
-	    			txt_ip.setTextFieldListener(new TextField.TextFieldListener() {
-
-	    				@Override
-	    				public void keyTyped(TextField textField, char c) {
-
-	    					 //plays button pop sound
-
-	    	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	            	SoundManager.playSound(sound);
-
-
-
-
-	    					ip = textField.getText();
-
-	    				}
-	    			});
-	    			txt_name.setTextFieldListener(new TextField.TextFieldListener() {
-
-	    				@Override
-	    				public void keyTyped(TextField textField, char c) {
-
-
-	    					 //plays button pop sound
-
-	    	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	    	            	SoundManager.playSound(sound);
-
-
-
-	    					name = textField.getText();
-
-	    				}
-	    			});
-
-	    			new MPClient(txt_ip.getText(), txt_name.getText(), game);
-	    			dispose();
-	    			/*
-	    			 * Port and IP are predefined
-	    			 * [TO DO] input from the users.
-	    			 *
-	    			 */
-	            	System.out.println("Continue");
-	            	return true;
-
-		}});
-
 
 
 		//Go Back Button
@@ -170,8 +112,8 @@ public class MultiplayerMenuScreen implements Screen {
 		backBtn.addListener(new InputListener() {
 	            @Override
 	            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	             	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-	            	SoundManager.playSound(sound);
+	            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	                sound.play(1F);
 	            	System.out.println("Back");
 	            	MultiplayerMenuScreen.this.dispose();
 	            	game.setScreen(new MainMenuScreen(game));
