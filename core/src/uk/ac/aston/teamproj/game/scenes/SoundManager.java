@@ -19,7 +19,7 @@ public class SoundManager implements Sound {
 	public static final Sound COIN = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
 	public static final Sound BOMB = Gdx.audio.newSound(Gdx.files.internal("bomb.wav"));
 
-	*/
+
 
 	public SoundManager() {
 
