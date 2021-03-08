@@ -38,7 +38,7 @@ public class MainMenuScreen implements Screen {
 	private TextureAtlas buttonsAtlas1; //the sprite-sheet containing all buttons
 	private Skin skin1; //skin for buttons
 	private ImageButton[] buttons;
-	private TextureAtlas buttonsAtlas1;
+	private TextureAtlas buttonsAtlas2;
 
 	public MainMenuScreen(MainGame game) {
 		this.game = game;
@@ -46,10 +46,11 @@ public class MainMenuScreen implements Screen {
 		stage = new Stage(viewport, ((MainGame) game).batch);
 
 		buttonsAtlas = new TextureAtlas("buttons/buttons.pack");
-		buttonsAtlas1 = new TextureAtlas("OptionsButtons.pack");
+		
 		skin = new Skin(buttonsAtlas);
 		buttonsAtlas1 = new TextureAtlas("buttons/Optionsbuttons.pack");
 		skin1 = new Skin(buttonsAtlas1);
+		
 		buttons = new ImageButton[4];
 
 		initializeButtons();
@@ -119,28 +120,7 @@ public class MainMenuScreen implements Screen {
 	    });
 
 
-		//Options Button
-				style = new ImageButtonStyle();
-				style.up = skin1.getDrawable("options_inactive");  //set default image
-				style.over = skin1.getDrawable("options_active");  //set image for mouse over
-
-				ImageButton optionsBtn = new ImageButton(style);
-				optionsBtn.addListener(new InputListener() {
-			            @Override
-			            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-			            	//do something
-
-			            	//plays button sounds
-
-			            	Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-			            	SoundManager.playSound(sound);
-
-			            	System.out.println("OPTIONS");
-			            	MainMenuScreen.this.dispose();
-			            	game.setScreen(new OptionsScreen(game));
-			            	return true;
-			            }
-			    });
+		
 
 		//Tutorial Button
 		style = new ImageButtonStyle();
